@@ -1,0 +1,20 @@
+<!--
+<h1>New User</h1>
+ <form action="/users" method="post" accept-charset="UTF-8">
+  <label for="username">User name:</label>
+  <input type="text" id="username" name="user[username]"><br><br>
+  <label for="email">email:</label>
+  <input type="text" id="email" name="user[email]"><br><br>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="user[password]"><br><br>
+  <input type="submit" value="Submit">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+</form> 
+-->
+<h1>New User</h1>
+<%= form_for @user do |f| %>
+  User name : <%= f.text_field :username %><br><br>
+  E-mail    : <%= f.text_field :email %><br><br>
+  Password  : <%= f.text_field :password %><br><br>
+<%= f.submit %>
+<%end%>

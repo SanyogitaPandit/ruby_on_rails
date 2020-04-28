@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <style>
+      body {
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <form>
+        <input type='text' name='guess' />        
+        <input type='submit' value='Guess!' />
+      </form>
+      <%= message %>
+      The SECRET NUMBER is <%= number if !number.nil?%>      
+    </p>
+  </body>
+</html>

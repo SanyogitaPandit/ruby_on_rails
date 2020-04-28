@@ -1,0 +1,183 @@
+<html>
+<head>
+    <title>Mastermind</title>
+    <style>
+        div {
+            margin: 2px
+        }
+        .dot {
+            height: 20px;
+            width: 20px;
+            background-color: grey;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .smalldot {    
+            height: 7px;
+            width: 7px;
+            background-color: grey;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .grid {            
+            width:130px;            
+        }
+        .guessgrid { 
+            width:22px;
+            display: inline-block;
+        }
+        
+        .menu { grid-area: menu; text-align: center;}
+        .main { grid-area: main; text-align: center;}        
+        .right { grid-area: right; text-align: left;}
+
+        .grid-container {
+          display: grid;
+          grid-template-areas:            
+            'menu main right right right right';
+          grid-gap: 10px;          
+          padding: 10px;          
+        }
+
+        .grid-container > div {
+          padding: 20px 0;          
+        }
+    </style>
+</head>
+<body onload="loadPage()" style='background-color: burlywood'>
+<form>
+<h1 style="text-align: center">Mastermind</h1>
+<div class="grid-container">
+    <div class="menu">
+        <p>You are playing as a code breaker.<br>Choose colors from the below set.<br>
+            You have 12 rounds to guess the color code.
+        </p>
+        <input type = "submit" value="Start new game" name="newgame" onclick="startNewGame()"/><br><br>
+        <input class="dot" type="button" onclick="onButtonClick(event)" style='background-color: <%=rbcolorset[0]%>' id=<%=rbcolorset[0]%> />
+        <input class="dot" type="button" onclick="onButtonClick(event)" style='background-color: <%=rbcolorset[1]%>' id=<%=rbcolorset[1]%> />
+        <input class="dot" type="button" onclick="onButtonClick(event)" style='background-color: <%=rbcolorset[2]%>' id=<%=rbcolorset[2]%> />
+        <input class="dot" type="button" onclick="onButtonClick(event)" style='background-color: <%=rbcolorset[3]%>' id=<%=rbcolorset[3]%> />
+        <input class="dot" type="button" onclick="onButtonClick(event)" style='background-color: <%=rbcolorset[4]%>' id=<%=rbcolorset[4]%> />
+        <input class="dot" type="button" onclick="onButtonClick(event)" style='background-color: <%=rbcolorset[5]%>' id=<%=rbcolorset[5]%> /><br><br>
+        <input type="hidden" id="guessCode" name="guessCode">
+        <input type = "submit" value="Submit" onclick="OnSubmit()"/>
+        <input type = "button" value="Clear" onclick="Clear()"/>           
+    </div>
+    <div class="main">        
+        <div id="container" class="grid"></div>        
+    </div>
+    <div id='result' class="right" style='visibility: hidden'>        
+        <p><%=msg%><p>
+        The secret code is:
+            <div class='dot' style='background-color: <%=code[0]%>'></div>
+            <div class='dot' style='background-color: <%=code[1]%>'></div>
+            <div class='dot' style='background-color: <%=code[2]%>'></div>
+            <div class='dot' style='background-color: <%=code[3]%>'></div>        
+    </div>
+</div>
+</form>
+</body>
+<script>
+let round = <%=round%>
+let itr = 0;
+let guessCode = [];
+let colorset = JSON.parse('<%=rbcolorset%>');
+let gnfk = JSON.parse('<%=gnfk%>');
+let gnfv = JSON.parse('<%=gnfv%>');
+let msg = '<%=msg%>';
+
+function OnSubmit(){
+    if(itr == 4)
+        document.getElementById("guessCode").value = guessCode;
+    else
+        document.getElementById("guessCode").value = [];
+}
+
+function loadPage() {
+    let container = document.getElementById("container"); 
+    guessCode = [];    
+    for (var rows = 0; rows < 12; rows++) {
+        let arr = [];
+        for (var columns = 0; columns < 4; columns++) {
+            let sphere = document.createElement("div");
+            sphere.classList.add("dot");
+            
+            if(Array.isArray(gnfk) && gnfk.length > rows) {                
+                sphere.style.background = gnfk[rows][columns];
+            }            
+
+            sphere.id = rows.toString() + columns.toString();
+            container.append(sphere);
+
+            let guesssphere = document.createElement("div");
+            guesssphere.classList.add("smalldot");
+            if(Array.isArray(gnfv) && gnfv.length > rows && gnfv[rows][columns] != '_') {                
+                guesssphere.style.background = gnfv[rows][columns];
+            }
+            arr.push(guesssphere);
+
+            if(columns == 3) {
+                let guessContainer = document.createElement("div");
+                guessContainer.classList.add("guessgrid");
+                while (arr.length > 0) {
+                    guessContainer.append(arr.pop());   
+                }
+        
+                container.append(guessContainer);
+            }
+        }
+    }
+
+    if(round == 13 || msg != 's')
+    {
+        container = document.getElementById("result").style.visibility = "visible"; 
+    }
+}
+
+function startNewGame() {
+    document.getElementById("guessCode").value = "restart";
+}
+
+function Clear() {    
+    while (itr > 0) {
+        document.getElementById(round.toString()+(--itr).toString()).style.background = 'grey';
+    }
+}
+
+function onButtonClick(event) {    
+    let currentVal = event.currentTarget.id;
+    if (itr >= 4) {
+        alert("All pegs are full for current round.\nEither submit your guess or clear and re-enter.");
+        return;
+    }
+
+    let obj = document.getElementById(round.toString()+(itr++).toString());    
+    switch (currentVal) {
+        case colorset[0]:
+            obj.style.background = colorset[0];
+            guessCode.push(colorset[0])
+            break;
+        case colorset[1]:
+            obj.style.background = colorset[1];
+            guessCode.push(colorset[1])
+            break;
+        case colorset[2]:
+            obj.style.background = colorset[2];
+            guessCode.push(colorset[2])
+            break;
+        case colorset[3]:
+            obj.style.background = colorset[3];
+            guessCode.push(colorset[3])
+            break;
+        case colorset[4]:
+            obj.style.background = colorset[4];
+            guessCode.push(colorset[4])
+            break;
+        case colorset[5]:
+            obj.style.background = colorset[5];
+            guessCode.push(colorset[5])
+            break;
+    }    
+}
+</script>
+</html>
