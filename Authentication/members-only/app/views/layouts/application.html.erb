@@ -5,15 +5,26 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <p id="notice"><%= notice %></p>    
+    <p id="alert"><%= alert %></p>
 
-    <h1>Members-Only</h1>
+    <div class="topnav">
+      <a>Members-Only</a>
+      <% if member_signed_in? %>
+        <a><%= link_to "Sign out", destroy_member_session_path, method: :delete %></a>
+        <a><%= link_to current_member.name, edit_member_registration_path %></a>      
+      <% else %>      
+        <a><%= link_to "Sign Up", new_member_registration_path %></a>
+        <a><%= link_to "Sign In", new_member_session_path %></a>    
+      <% end %> 
+    </div>    
+
     <%= yield %>
   </body>
 </html>

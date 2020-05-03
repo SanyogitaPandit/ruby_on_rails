@@ -1,0 +1,107 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ body {    
+    font-family: Arial, Helvetica, sans-serif;
+    margin: auto;
+    width: 60%;
+    border: solid;    
+    border-width: 1px;
+    border-color: #e2e8f0;
+  }
+
+  .topnav a:first-child {
+      float: left;
+  }
+  
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  .topnav a { 
+    float: right;   
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .content {
+      text-align: left;
+      margin: 20px;
+      padding: 20px;      
+  }
+
+  .content textarea {
+      width: 100%;
+  }
+
+  .content p {
+    width: 100%;
+  }
+
+  .content h3 {
+    margin: 0;
+    padding: 0;
+  }
+
+  .div-post {    
+    margin-top: 10px;
+    width: 100%; 
+    border: solid;
+    border-width: 1px;
+    border-radius: .25rem;
+    border-color: #e2e8f0; 
+  }
+  .div-post p {   
+    padding-left: 10px;
+  }
+
+  .post-title {
+    margin-top: 10px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .post-title h3:first-child {
+    float: left;
+  }
+
+  .post-title h3 { 
+    float: right;       
+    text-align: center;    
+    text-decoration: none;  
+    padding-left: 10px;  
+  }
+
+  .post-title span { 
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
