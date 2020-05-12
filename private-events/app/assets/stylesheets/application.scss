@@ -1,0 +1,77 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ body {    
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: auto;
+    width: 100%;
+  }
+
+  .topnav a:first-child {
+      float: left;
+      font-size: 26px;      
+      font-weight: bolder;
+  }
+  
+  .topnav {
+    overflow: hidden;    
+  }
+  
+  .topnav a { 
+    float: right;   
+    color: #f59608;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 15px;
+  }
+  
+  .topnav a:hover {
+    color: #fa3503;
+    background-color: white;
+  }
+  
+  .topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .container {
+    width: 100%;
+    padding: 24px;
+    margin: auto;
+    overflow: auto;
+  }
+
+  .event {
+    width: 250px;
+    height: 200px;
+    background-color: #f7eee2;
+    text-align: center;
+    margin: 6px;    
+    float: left;
+    display: grid;
+    grid-template:
+    'header'
+    'main'
+    'main'
+    'main'
+    'footer';
+    border: solid;
+    border-width: 1px;
+    border-radius: 0.25rem;
+    border-color: #f5dcb9;
+  }

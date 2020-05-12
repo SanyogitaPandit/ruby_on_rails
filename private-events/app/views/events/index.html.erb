@@ -1,0 +1,19 @@
+<div class="container">
+<h3>All Events</h3>
+    <% @events.each do |event| %>
+    <div class="event">
+    <div style="grid-area: header">
+      <h4><%= event.title %></h4>
+      </div>
+      <div style="grid-area: main">
+      <a><%= event.dnt %><a></br>
+      <a><%= event.addr %><a>
+      </div>
+      <div style="grid-area: footer">
+      <%= link_to 'Show', event %>
+      <%= link_to 'Edit', edit_event_path(event) %>
+      <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+    <% end %>
+</div>

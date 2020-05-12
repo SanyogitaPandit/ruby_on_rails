@@ -9,7 +9,22 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body>        
+    <p id="notice"><%= notice %></p>
+    <p id="alert"><%= alert %></p>
+
+    <div class="topnav">
+      <%= link_to "Private-Events", events_path %>      
+      <% if user_signed_in? %>
+        <a><%= link_to "Sign out", destroy_user_session_path, method: :delete %></a>
+        <a><%= link_to current_user.name, edit_user_registration_path %></a>      
+      <% else %>      
+        <a><%= link_to "Sign Up", new_user_registration_path %></a>
+        <a><%= link_to "Sign In", new_user_session_path %></a>    
+      <% end %>
+      <a><%= link_to "Create event", new_event_path %></a>
+    </div>
+
     <%= yield %>
   </body>
 </html>
