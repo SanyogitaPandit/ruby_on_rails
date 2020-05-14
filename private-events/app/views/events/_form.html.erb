@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= f.label :Date %><br />
-    <%= f.date_field :dnt %>
+    <%= f.datetime_select :dnt, {start_year: Time.current.year, default: Time.now, use_short_month: true} %>
   </div>
 
   <div class="field">

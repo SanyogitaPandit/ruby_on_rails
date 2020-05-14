@@ -18,6 +18,8 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: auto;
     width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .topnav a:first-child {
@@ -51,15 +53,19 @@
 
   .container {
     width: 100%;
-    padding: 24px;
+    padding: 10px 50px 0px 50px;
     margin: auto;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
+  .clearfix {
+    float: none;
+    clear: left;
+  }
   .event {
     width: 250px;
     height: 200px;
-    background-color: #f7eee2;
     text-align: center;
     margin: 6px;    
     float: left;
@@ -73,5 +79,5 @@
     border: solid;
     border-width: 1px;
     border-radius: 0.25rem;
-    border-color: #f5dcb9;
+    border-color: #f59608;
   }
