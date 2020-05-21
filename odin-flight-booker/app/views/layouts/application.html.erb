@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OdinFlightBooker</title>
+    <title>OdinFlights</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,20 @@
   </head>
 
   <body>
+    <div class="topnav">    
+      <a class="active" href='<%=flights_path%>'>ODIN Flights</a>           
+      <% if passanger_signed_in? %>
+        <a><%= link_to "Sign out", destroy_passanger_session_path, method: :delete %></a>
+        <a><%= link_to current_passanger.name, edit_passanger_registration_path %></a>      
+      <% else %>      
+        <a><%= link_to "Sign Up", new_passanger_registration_path %></a>
+        <a><%= link_to "Sign In", new_passanger_session_path %></a>    
+      <% end %>      
+    </div>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
     <%= yield %>
   </body>
 </html>

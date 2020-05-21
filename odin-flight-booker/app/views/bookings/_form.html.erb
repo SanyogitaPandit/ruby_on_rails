@@ -1,0 +1,22 @@
+<%= form_for @booking do |f| %>
+  <% if @booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this flight from being saved:</h2>
+
+      <ul>
+      <% @booking.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  
+  <%= f.text_field :flight_id, autofocus: true %>
+  
+  <%= f.text_field :passanger_id, autofocus: true %>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

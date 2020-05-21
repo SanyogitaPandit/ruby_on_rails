@@ -1,0 +1,28 @@
+<div class="search-box">
+<%= form_tag '/flights', method: "get" do %>  
+  <table>
+    <tbody>      
+        <tr>
+          <td>
+            <%= label_tag(:from) %>
+            <%= select_tag(:from_airport, options_for_select(@airport_options, params[:from_airport])) %>
+          </td>        
+          <td>
+            <%= label_tag(:to) %>
+            <%= select_tag(:to_airport, options_for_select(@airport_options, params[:to_airport])) %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <%= label_tag(:date) %>
+            <%= date_select :sdt, {start_year: Time.current.year, default: Time.now, use_short_month: true} %>
+          </td>
+        </tr>
+    </tbody>
+  </table> 
+
+  <div class="actions">
+    <%= submit_tag("Search") %>
+  </div>
+<% end %>
+</div>
