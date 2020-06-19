@@ -11,6 +11,9 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
+        # Tell the PassangerMailer to send a thank you email after save
+        PassengerMailer.with(passanger: @booking.passanger).thankyou_email.deliver_later
+
         format.html { redirect_to flights_path, notice: 'Booking was successfully done.' }
         format.json { render :show, status: :created, location: flights_path }
       else
