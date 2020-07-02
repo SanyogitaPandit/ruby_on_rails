@@ -1,0 +1,19 @@
+<%= render "form" %>
+<% @posts.each do |post| %>
+  <div class="panel">
+    <div class="pname">
+      <%= gravatar_image_tag(post.user.email, alt: post.user.name, :gravatar => { :size => 32 }) %>
+      <a><%= post.user.name %></a>
+    </div>  
+    <div class="main">
+      <%= post.content %>
+      <%= post.likes %>      
+    </div>
+    
+    <%= link_to 'New Comment', new_post_comment_path(post) %>
+    <%= link_to 'Show', post %>
+    <%= link_to 'Edit', edit_post_path(post) %> 
+    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %> 
+  </div>
+<% end %>
+<!-- <%= link_to 'New Post', new_post_path %> -->
