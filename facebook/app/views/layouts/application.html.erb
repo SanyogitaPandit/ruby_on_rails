@@ -6,6 +6,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -23,17 +24,15 @@
 
     <div class="topnav">            
       <% if user_signed_in? %>
-        <a><%= gravatar_image_tag(current_user.email, alt: current_user.name, :gravatar => { :size => 32 }) %></a>        
-        <a><%= gravatar_image_tag(current_user.email, alt: current_user.name, :gravatar => { :size => 32 }) %></a>
-        <a><%= link_to current_user.name, edit_user_registration_path, class:"button is-info" %></a>
-        <a><%= link_to "Log Out ", destroy_user_session_path, method: :delete, class:"button is-info" %></a>
+        <%= link_to gravatar_image_tag(current_user.email, alt: current_user.name, :gravatar => { :size => 32 }), root_path %>
+        <%= gravatar_image_tag(current_user.email, alt: current_user.name, :gravatar => { :size => 32 }) %>
+        <%= link_to current_user.name, edit_user_registration_path, class:"button is-info" %>
+        <%= link_to "Log Out ", destroy_user_session_path, method: :delete, class:"button is-info" %>
       <% else %>
-        <a>facebook</a>
+        <%= link_to "facebook", root_path %>
         <a><%= render "devise/sessions/login" %></a>
       <% end %>
-    </div>
-    <div class="container">
-      <%= yield %>
-    </div>
+    </div> 
+    <%= yield %>
   </body>
 </html>
