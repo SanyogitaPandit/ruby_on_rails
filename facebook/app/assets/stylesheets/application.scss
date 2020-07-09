@@ -99,18 +99,47 @@
   grid-area: header;
 }
 
+.phright {  
+  grid-area: hright;
+  text-align: right;  
+}
+
+.pmenu {
+  grid-area: menu;  
+}
+
+.pmright {
+  grid-area: mright;
+  text-align: right;
+}
+
 .main {
   grid-area: main;
-  background-color: whitesmoke;
+  background-color: whitesmoke;  
+}
+
+.pfooter{
+  grid-area: footer;
+  text-align: center;
+}
+
+.pfright{
+  grid-area: fright;
+  text-align: center;
+}
+
+.pcomments {
+  grid-area: comments;
 }
 
 .panel {
   display: grid;
   grid-template-areas:
-    'header header header'
-    'main main main'
-    'main main main'
-    'footer footer footer';
+    'header header header hright'
+    'main main main main'
+    'menu menu mright mright'
+    'footer footer fright fright'
+    'comments comments comments comments';
   background-color: white;  
   border-radius: 0.45rem;
   margin: 10px;
@@ -127,5 +156,6 @@ textarea {
 .columns {
   display: flex;
   background-color: #e3e6ec;
-  flex: 1 auto 1;
+  flex: 0 0 auto;
+  text-align: center;
 }

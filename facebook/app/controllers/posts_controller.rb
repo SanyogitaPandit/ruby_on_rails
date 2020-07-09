@@ -6,7 +6,13 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @users = User.all.order("created_at DESC")
-    @posts = Post.all.order("created_at DESC")    
+    @posts = Array.new
+    current_user.posts.each do |p| @posts << p end
+    current_user.friends.each do |friend|
+      friend.posts.each {|post| @posts << post }
+    end
+    
+    @posts = @posts.sort_by(&:created_at).reverse!
     @post = Post.new
   end
 

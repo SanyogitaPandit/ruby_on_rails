@@ -1,0 +1,21 @@
+<% @post_thumbs.each do |thumb| %>
+    <% user = User.find(thumb.user_id) %><br/>
+    <div class="user">
+    <p>
+      <a><%= gravatar_image_tag(current_user.email, alt: current_user.name, gravatar: { size: 32 }) %></a>
+      <strong><%= user.name %></strong>      
+      <% if current_user.friendships.exists?(friend_id: user) %>
+        <% friendship = current_user.friendships.where(friend_id: user).first %>      
+        <%= link_to "Unfriend", friendship, method: :delete %> 
+      <% elsif user.friendships.exists?(friend_id: current_user) %>
+        <% friendship = user.friendships.where(friend_id: current_user).first %>      
+        <%= link_to "Unfriend", friendship, method: :delete %>        
+      <% elsif user.notifications.exists?(friendship_id: current_user) %>
+        <%= "Friend Request sent" %>
+        <%= link_to "Cancel", user.notifications.where(friendship_id: current_user).first, method: :delete %>
+      <% elsif current_user != user %>
+        <%= link_to "Add Friend", notifications_path(notice_to: user), method: :post %>
+      <% end %>       
+    </p>
+  </div>    
+<% end %>

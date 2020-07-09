@@ -3,26 +3,56 @@
   <% @posts.each do |post| %>
     <div class="panel">
       <div class="pname">
-        <%= gravatar_image_tag(post.user.email, alt: post.user.name, :gravatar => { :size => 32 }) %>
-        <a><%= post.user.name %></a>       
+        <%= gravatar_image_tag(post.user.email, alt: post.user.name, :gravatar => { :size => 32 }) %>       
+        <a><%= post.user.name %></a>
+      </div>
+      <div class="phright">
         <%= link_to post do %>
             <span class="icon"><i class="fa fa-link" area-hidden="true"></i></span>
         <% end %>
+        <% if post.user == current_user %>
         <%= link_to edit_post_path(post), class: "level-item" do %>
             <span class="icon"><i class="fa fa-pencil" area-hidden="true"></i></span>
         <% end %>
         <%= link_to post, method: :delete, data: { confirm: "Are you sure you want to delete this post?"} do %>
             <span class="icon"><i class="fa fa-trash-o" area-hidden="true"></i></span>
         <% end %> 
-      </div>  
+        <% end %>
+      </div>        
       <div class="main">
-        <%= post.content %>
-        <%= post.likes %>      
+        <%= post.content %>        
       </div>
-      <%= link_to 'New Comment', new_post_comment_path(post) %>
+      <div class="pmenu">   
+        <%= link_to post_thumbs_path(post), class: "level-item" do %>     
+          <span class="icon"><i class="fa fa-thumbs-up" area-hidden="true"> <%= post.thumbs.count %></i></span>        
+        <% end %>
+      </div>
+      <div class="pmright">
+        <%= link_to post_comments_path(post), class: "level-item" do %>
+          <span class="icon"><%= post.comments.count %> Comments</span>
+        <% end %>
+      </div>
+      <div class="pfooter">
+        <% if post.thumbs.exists?(:user_id => current_user.id) %>                
+          <%= link_to [post, post.thumbs.where(:user_id => current_user.id).first], method: :delete do %>
+            <span class="icon"><i class="fa fa-thumbs-up" area-hidden="true">Unlike</i></span>
+          <% end %>  
+        <% else %>
+          <%= link_to post_thumbs_path(post), method: :post do %>
+            <span class="icon"><i class="fa fa-thumbs-up" area-hidden="true">Like</i></span>
+          <% end %>
+        <% end %>  
+        </div>    
+        <div class="pfright">
+        <%= link_to new_post_comment_path(post), class: "level-item" do %>
+            <span class="icon"><i class="fa fa-comment" area-hidden="true">Comment</i></span>
+        <% end %>                  
+      </div>
+      <div class="pcomments">
       <% post.comments.each do |comment| %>
           <br/><%= comment.comment %>        
-      <% end %>         
+      <% end %>
+      </div>
     </div>
   <% end %>
   <!-- <%= link_to 'New Post', new_post_path %> -->

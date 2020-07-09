@@ -23,12 +23,17 @@ class FriendshipsController < ApplicationController
   # FRIENDSHIP /friendships
   # FRIENDSHIP /friendships.json
   def create
-    @notification = Notification.find(params['notification_id'])   
-    @friendship = current_user.friendships.build(:friend_id => @notification.friendship_id)    
+    @notification = Notification.find(params['notification_id']) 
+    friend_id =  @notification.friendship_id
+    @friendship = current_user.friendships.build(:friend_id => friend_id)    
     if @friendship.save
       @notification.notice = 1;
-      @notification.friendship_id = @friendship.id      
+      @notification.friendship_id = @friendship.id 
       @notification.save
+
+      #save mutual friendship
+      Friendship.new(user_id: friend_id, friend_id: current_user.id).save
+
       redirect_to root_url
     else
       flash[:notice] = "Unable to add friend."
@@ -54,7 +59,9 @@ class FriendshipsController < ApplicationController
   # DELETE /friendships/1.json
   def destroy
     @friendship = Friendship.find(params[:id])
+    @friendship_mutual = Friendship.where(:user_id => @friendship.friend_id).first
     @friendship.destroy    
+    @friendship_mutual.destroy
     respond_to do |format|
       format.html { redirect_to root_url }
       format.json { head :no_content }

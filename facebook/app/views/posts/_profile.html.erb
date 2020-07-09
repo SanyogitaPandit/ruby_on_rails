@@ -5,7 +5,7 @@
     <% if notification.notice == 0 %>
       <%= User.find(notification.friendship_id).name %>
       <%= link_to 'Accept', friendships_path(notification_id: notification), method: :post %>
-    <% else %>
+    <% elsif current_user.friendships.exists?(notification.friendship_id)   %>
       <%= User.find(current_user.friendships.find(notification.friendship_id).friend_id).name %>
       <%= "Friend request accepted!"%>
     <% end %>
