@@ -1,5 +1,9 @@
-<h1>Create Comment</h1>
-
-<%= render 'form', post: @post, post_comment: @post_comment %>
-
+<div class="columns">
+    <div style="width: 25%;"></div>
+    <div style="width: 50%;">
+        <h1>Create Comment</h1>
+        <%= render 'form', post: @post, post_comment: @post_comment %>
+    </div>
+    <div style="width: 25%;"></div>
+</div>
 <%= link_to 'Back', posts_path %>

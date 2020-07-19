@@ -22,17 +22,31 @@
       </div>
     <%end%>
 
-    <div class="topnav">            
-      <% if user_signed_in? %>
-        <%= link_to gravatar_image_tag(current_user.email, alt: current_user.name, :gravatar => { :size => 32 }), root_path %>
-        <%= gravatar_image_tag(current_user.email, alt: current_user.name, :gravatar => { :size => 32 }) %>
-        <%= link_to current_user.name, edit_user_registration_path, class:"button is-info" %>
-        <%= link_to "Log Out ", destroy_user_session_path, method: :delete, class:"button is-info" %>
-      <% else %>
-        <%= link_to "facebook", root_path %>
+    <div class="topnav">
+      <%= link_to "facebook", root_path %>      
+      <% if user_signed_in? %>  
+        <% if !current_user.avatar.attachment.nil? %>              
+        <a><%= image_tag current_user.avatar, size: "32" %></a>
+        <% end %>
+        <%= link_to current_user.name, current_user %> 
+        <div class="dropdown">
+          <a style="visibility: hidden;"></a>
+          <%= link_to "", class: "notification" do %>
+              <span class="icon"><i class="fa fa-bell" area-hidden="true"></i></span>  
+              <span class="badge"><%= current_user.notifications.count %></span>
+          <% end %>
+          <div class="dropdown-content" id="myDropdown">
+            <a style="visibility: hidden;"></a>            
+            <%= render "notifications/notifications" %>
+            <%= link_to "See all notifications", notifications_path %>
+          </div>
+        </div>
+        <%= link_to "Log Out ", destroy_user_session_path, method: :delete %>
+      <% else %>        
         <a><%= render "devise/sessions/login" %></a>
       <% end %>
-    </div> 
+      <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+    </div>
     <%= yield %>
   </body>
 </html>

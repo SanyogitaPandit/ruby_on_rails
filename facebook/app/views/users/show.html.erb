@@ -1,0 +1,15 @@
+<div class="container">
+<% if @image %>
+  <%= image_tag @image, size: "150" %>
+<% end %>
+<strong><%= @user.name %></strong>
+<%= render 'avatar_upload' %>
+<br>
+Friends:<br>
+<% @user.friends.each do |friend| %> 
+  <%= friend.name %><br>
+<% end %>
+<%= link_to "Edit profile", edit_user_registration_path %> 
+<h3>Posts</h3>
+<%= render "posts/posts" %>
+</div>

@@ -1,0 +1,18 @@
+<% if !current_user.notifications.nil? %>
+<% current_user.notifications.each do |notification| %>
+<% if notification.notice == 0 %>
+  <% friend = User.find(notification.friendship_id) %>
+  <%= gravatar_image_tag(current_user.email, alt: current_user.name, gravatar: { size: 32 }) %>
+  <strong><%= friend.name %></strong>
+  <%= link_to 'Accept', friendships_path(notification_id: notification), method: :post %>
+<% elsif current_user.friendships.exists?(notification.friendship_id)   %>
+  <% friend = User.find(current_user.friendships.find(notification.friendship_id).friend_id) %>
+  <%= gravatar_image_tag(current_user.email, alt: current_user.name, gravatar: { size: 32 }) %>
+  <strong><%= friend.name %></strong><br/>
+  <span>Friend request accepted!</span>
+<% end %>
+<%= link_to 'Destroy', notification, method: :delete %>
+<hr>
+<% end %>
+<% end %>
+  

@@ -1,0 +1,4 @@
+<%= form_with(model: @user, method: :patch, local: true) do |f| %>
+  <%= f.file_field :avatar %>
+  <%= f.submit "Update avatar" %>
+<% end %>

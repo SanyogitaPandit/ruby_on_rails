@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
           redirect_to new_user_registration_path
         end
     end
+
+    def new_session_path(scope)
+      new_user_session_path
+    end
 end

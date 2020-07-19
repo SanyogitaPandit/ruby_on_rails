@@ -15,7 +15,7 @@ class ThumbsController < ApplicationController
         @post_thumb.save
         
         respond_to do |format|                    
-          format.html { redirect_to root_url }
+          format.html { redirect_to request.referrer }
           format.json { head :no_content }
         end     
     end
@@ -24,7 +24,7 @@ class ThumbsController < ApplicationController
       @thumb = Thumb.find(params[:id])
       @thumb.destroy
       respond_to do |format|
-        format.html { redirect_to root_url }
+        format.html { redirect_to request.referrer }
         format.json { head :no_content }
       end
     end

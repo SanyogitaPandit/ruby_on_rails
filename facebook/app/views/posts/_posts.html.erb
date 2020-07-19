@@ -1,5 +1,5 @@
 <div class="container">
-  <%= render "form" %>
+  <%= render "posts/form", post: Post.new %>
   <% @posts.each do |post| %>
     <div class="panel">
       <div class="pname">
@@ -20,7 +20,7 @@
         <% end %>
       </div>        
       <div class="main">
-        <%= post.content %>        
+        <%= post.content %>
       </div>
       <div class="pmenu">   
         <%= link_to post_thumbs_path(post), class: "level-item" do %>     
@@ -28,7 +28,7 @@
         <% end %>
       </div>
       <div class="pmright">
-        <%= link_to post_comments_path(post), class: "level-item" do %>
+        <%= link_to post, class: "level-item" do %>
           <span class="icon"><%= post.comments.count %> Comments</span>
         <% end %>
       </div>
@@ -46,14 +46,18 @@
         <div class="pfright">
         <%= link_to new_post_comment_path(post), class: "level-item" do %>
             <span class="icon"><i class="fa fa-comment" area-hidden="true">Comment</i></span>
-        <% end %>                  
+        <% end %>  
       </div>
       <div class="pcomments">
-      <% post.comments.each do |comment| %>
-          <br/><%= comment.comment %>        
-      <% end %>
+        <% if post.comments.last %>
+        <% comment = post.comments.last %>
+        <br/>
+        <%= gravatar_image_tag(comment.user.email, alt: comment.user.name, :gravatar => { :size => 32 }) %>       
+        <a><%= comment.user.name %></a>
+        <br/>
+        <%= comment.comment %> 
+        <% end %>
       </div>
     </div>
   <% end %>
-  <!-- <%= link_to 'New Post', new_post_path %> -->
 </div>
